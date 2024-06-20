@@ -1,1 +1,46 @@
+O sistema de gerenciamento de doações é composto por três classes principais: SistemaGerenciamentoDoacoes, GerenciadorDoacoes e Doacao. A classe SistemaGerenciamentoDoacoes serve como ponto de entrada da aplicação, contendo o método main, que inicia a execução do programa e provavelmente instancia GerenciadorDoacoes para gerenciar as doações.
+
+A classe GerenciadorDoacoes é responsável pela gestão das doações. Ela mantém uma lista de doações (doacoes), um nome de arquivo para armazenamento (ARQUIVO_DOACOES), e um formato de data (sdf). Seus métodos principais incluem: o construtor GerenciadorDoacoes(), que inicializa o objeto; adicionarDoacao(String, double, Date), que adiciona uma nova doação à lista; calcularTotalDoacoes(), que calcula o total das doações; getDoacoes(), que retorna a lista de doações; carregarDoacoes(), que carrega as doações de um arquivo; e salvarDoacoes(), que salva as doações em um arquivo.
+
+A classe Doacao representa uma doação individual com propriedades para o tipo de doação (tipo), quantidade (quantidade) e data (data). Ela inclui métodos como: o construtor Doacao(String, double, Date), que inicializa a doação; getTipo(), que retorna o tipo da doação; getQuantidade(), que retorna a quantidade da doação; getData(), que retorna a data da doação; e toString(), que fornece uma representação em string da doação.
+
+Em termos de interação, SistemaGerenciamentoDoacoes inicia e coordena o funcionamento do sistema através de GerenciadorDoacoes. Esta, por sua vez, gerencia múltiplas instâncias de Doacao, carregando, adicionando, calculando totais e salvando doações conforme necessário. Por exemplo, ao iniciar, o método carregarDoacoes é chamado para carregar doações previamente salvas. Novas doações são adicionadas via adicionarDoacao e salvas com salvarDoacoes. O total de doações pode ser calculado a qualquer momento usando calcularTotalDoacoes e a lista de doações pode ser exibida com getDoacoes.
+O diagrama abaixo:
+         ,---------------------------.         
+         |SistemaGerenciamentoDoacoes|         
+         |---------------------------|         
+         |+ main(String[]): void     |         
+         `---------------------------'         
+                       |                       
+                       |                       
+,---------------------------------------------.
+|GerenciadorDoacoes                           |
+|---------------------------------------------|
+|- doacoes: List<Doacao>                      |
+|- ARQUIVO_DOACOES: String                    |
+|- sdf: SimpleDateFormat                      |
+|+ GerenciadorDoacoes()                       |
+|+ adicionarDoacao(String, double, Date): void|
+|+ calcularTotalDoacoes(): double             |
+|+ getDoacoes(): List<Doacao>                 |
+|- carregarDoacoes(): void                    |
+|- salvarDoacoes(): void                      |
+`---------------------------------------------'
+                       |                       
+       ,------------------------------.        
+       |Doacao                        |        
+       |------------------------------|        
+       |- tipo: String                |        
+       |- quantidade: double          |        
+       |- data: Date                  |        
+       |+ Doacao(String, double, Date)|        
+       |+ getTipo(): String           |        
+       |+ getQuantidade(): double     |        
+       |+ getData(): Date             |        
+       |+ toString(): String          |        
+       `------------------------------'      
+
+
+
+
 
