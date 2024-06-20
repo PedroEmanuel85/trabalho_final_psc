@@ -1,1 +1,159 @@
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Scanner;
 
+public class Main {
+
+    public static void main(String[] args) {
+        GerenciadorDoacoes gerenciador = new GerenciadorDoacoes();
+        Scanner scanner = new Scanner(System.in);
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+
+        while (true) {
+            System.out.println("1. Receber Doação");
+            System.out.println("2. Calcular Total de Doações");
+            System.out.println("3. Mostrar Todas as Doações");
+            System.out.println("4. Sair");
+            System.out.print("Escolha uma opção: ");
+
+            int opcao = scanner.nextInt();
+            scanner.nextLine();  // Consumir a nova linha
+
+            if (opcao == 1) {
+                System.out.print("Tipo de Doação (dinheiro, alimentos, roupas, etc.): ");
+                String tipo = scanner.nextLine();
+                System.out.print("Quantidade: ");
+                while (!scanner.hasNextDouble()) {
+                    System.out.println("Por favor, insira um valor numérico válido para a quantidade.");
+                    scanner.next();
+                }
+                double quantidade = scanner.nextDouble();
+                scanner.nextLine();  // Consumir a nova linha
+                System.out.print("Data da Doação (dd/MM/yyyy): ");
+                String dataString = scanner.nextLine();
+
+                try {
+                    Date data = sdf.parse(dataString);
+                    gerenciador.adicionarDoacao(tipo, quantidade, data);
+                    System.out.println("Doação registrada com sucesso!");
+                } catch (ParseException e) {
+                    System.out.println("Data inválida. Tente novamente.");
+                }
+            } else if (opcao == 2) {
+                double total = gerenciador.calcularTotalDoacoes();
+                System.out.println("Total de Doações: " + total);
+            } else if (opcao == 3) {
+                for (Doacao doacao : gerenciador.getDoacoes()) {
+                    System.out.println(doacao);
+                }
+            } else if (opcao == 4) {
+                break;
+            } else {
+                System.out.println("Opção inválida. Tente novamente.");
+            }
+        }
+
+        scanner.close();
+    }
+}
+
+////////////////////////////////////////////////////////////////////////////////////
+
+import java.util.Date;
+import java.text.SimpleDateFormat;
+
+public class Doacao {
+    private String tipo;
+    private double quantidade;
+    private Date data;
+
+    public Doacao(String tipo, double quantidade, Date data) {
+        this.tipo = tipo;
+        this.quantidade = quantidade;
+        this.data = data;
+    }
+
+    public String getTipo() {
+        return tipo;
+    }
+
+    public double getQuantidade() {
+        return quantidade;
+    }
+
+    public Date getData() {
+        return data;
+    }
+
+    @Override
+    public String toString() {
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        return "Doacao [tipo=" + tipo + ", quantidade=" + quantidade + ", data=" + sdf.format(data) + "]";
+    }
+}
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+import java.io.*;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
+public class GerenciadorDoacoes {
+    private List<Doacao> doacoes;
+    private static final String ARQUIVO_DOACOES = "doacoes.txt";
+    private SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+
+    public GerenciadorDoacoes() {
+        doacoes = new ArrayList<>();
+        carregarDoacoes();
+    }
+
+    public void adicionarDoacao(String tipo, double quantidade, Date data) {
+        Doacao doacao = new Doacao(tipo, quantidade, data);
+        doacoes.add(doacao);
+        salvarDoacoes();
+    }
+
+    public double calcularTotalDoacoes() {
+        double total = 0;
+        for (Doacao doacao : doacoes) {
+            total += doacao.getQuantidade();
+        }
+        return total;
+    }
+
+    public List<Doacao> getDoacoes() {
+        return doacoes;
+    }
+
+    private void carregarDoacoes() {
+        try (BufferedReader reader = new BufferedReader(new FileReader(ARQUIVO_DOACOES))) {
+            String linha;
+            while ((linha = reader.readLine()) != null) {
+                String[] partes = linha.split(",");
+                String tipo = partes[0];
+                double quantidade = Double.parseDouble(partes[1]);
+                Date data = sdf.parse(partes[2]);
+                doacoes.add(new Doacao(tipo, quantidade, data));
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println("Arquivo de doações não encontrado. Um novo arquivo será criado.");
+        } catch (Exception e) {
+            System.out.println("Erro ao carregar doações: " + e.getMessage());
+        }
+    }
+
+    private void salvarDoacoes() {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(ARQUIVO_DOACOES))) {
+            for (Doacao doacao : doacoes) {
+                writer.write(doacao.getTipo() + "," + doacao.getQuantidade() + "," + sdf.format(doacao.getData()));
+                writer.newLine();
+            }
+        } catch (IOException e) {
+            System.out.println("Erro ao salvar doações: " + e.getMessage());
+        }
+    }
+}
