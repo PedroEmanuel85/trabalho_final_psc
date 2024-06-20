@@ -1,1 +1,18 @@
-
+Requisitos Funcionais
+1. Interface de Usuário
+Tela de Registro de Doações:
+Formulário para entrada de tipo, quantidade, e data da doação.
+Tela de Visualização do Total de Doações:
+Exibição do total de doações e filtros por tipo e período.
+2. Funcionalidades de Backend
+Registro de Doações:
+Validação e inserção dos dados no banco de dados ou arquivo texto.
+Cálculo de Total de Doações:
+Funções para somar todas as doações e aplicar filtros.
+Armazenamento de Dados:
+Estruturação para armazenar dados de doação e funções para leitura/escrita.
+3. Segurança e Manutenção
+Segurança dos Dados:
+Medidas de proteção e controle de acesso.
+Manutenção e Atualizações:
+Documentação clara e estrutura modular do código.
