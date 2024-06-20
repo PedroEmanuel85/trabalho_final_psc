@@ -6,39 +6,42 @@ A classe Doacao representa uma doação individual com propriedades para o tipo 
 
 Em termos de interação, SistemaGerenciamentoDoacoes inicia e coordena o funcionamento do sistema através de GerenciadorDoacoes. Esta, por sua vez, gerencia múltiplas instâncias de Doacao, carregando, adicionando, calculando totais e salvando doações conforme necessário. Por exemplo, ao iniciar, o método carregarDoacoes é chamado para carregar doações previamente salvas. Novas doações são adicionadas via adicionarDoacao e salvas com salvarDoacoes. O total de doações pode ser calculado a qualquer momento usando calcularTotalDoacoes e a lista de doações pode ser exibida com getDoacoes.
 O diagrama abaixo:
-         ,---------------------------.         
-         |SistemaGerenciamentoDoacoes|         
-         |---------------------------|         
-         |+ main(String[]): void     |         
-         `---------------------------'         
-                       |                       
-                       |                       
-,---------------------------------------------.
-|GerenciadorDoacoes                           |
-|---------------------------------------------|
-|- doacoes: List<Doacao>                      |
-|- ARQUIVO_DOACOES: String                    |
-|- sdf: SimpleDateFormat                      |
-|+ GerenciadorDoacoes()                       |
-|+ adicionarDoacao(String, double, Date): void|
-|+ calcularTotalDoacoes(): double             |
-|+ getDoacoes(): List<Doacao>                 |
-|- carregarDoacoes(): void                    |
-|- salvarDoacoes(): void                      |
-`---------------------------------------------'
-                       |                       
-       ,------------------------------.        
-       |Doacao                        |        
-       |------------------------------|        
-       |- tipo: String                |        
-       |- quantidade: double          |        
-       |- data: Date                  |        
-       |+ Doacao(String, double, Date)|        
-       |+ getTipo(): String           |        
-       |+ getQuantidade(): double     |        
-       |+ getData(): Date             |        
-       |+ toString(): String          |        
-       `------------------------------'      
+            ,---------------------------------.              
+             |Main                             |              
+             |---------------------------------|              
+             |- gerenciador: GerenciadorDoacoes|              
+             |- scanner: Scanner               |              
+             |- sdf: SimpleDateFormat          |              
+             |+ main(String[] args)            |              
+             `---------------------------------'              
+                               |                              
+                               |                              
+,------------------------------------------------------------.
+|GerenciadorDoacoes                                          |
+|------------------------------------------------------------|
+|- doacoes: List<Doacao>                                     |
+|- ARQUIVO_DOACOES: String                                   |
+|- sdf: SimpleDateFormat                                     |
+|+ GerenciadorDoacoes()                                      |
+|+ adicionarDoacao(String tipo, double quantidade, Date data)|
+|+ calcularTotalDoacoes(): double                            |
+|+ getDoacoes(): List<Doacao>                                |
+|- carregarDoacoes()                                         |
+|- salvarDoacoes()                                           |
+`------------------------------------------------------------'
+                               |                              
+    ,---------------------------------------------------.     
+    |Doacao                                             |     
+    |---------------------------------------------------|     
+    |- tipo: String                                     |     
+    |- quantidade: double                               |     
+    |- data: Date                                       |     
+    |+ Doacao(String tipo, double quantidade, Date data)|     
+    |+ getTipo(): String                                |     
+    |+ getQuantidade(): double                          |     
+    |+ getData(): Date                                  |     
+    |+ toString(): String                               |     
+    `---------------------------------------------------'         
 
 
 
