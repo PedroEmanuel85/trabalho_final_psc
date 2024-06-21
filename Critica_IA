@@ -1,1 +1,5 @@
+A crítica à IA no processo de identificação dos requisitos funcionais para o sistema de gerenciamento de doações revelou pontos positivos e áreas que requerem melhorias substanciais. A IA demonstrou competência ao estruturar claramente as funcionalidades essenciais do sistema, como receber doações, calcular total e armazenar informações. Essa organização é crucial para delinear o escopo do projeto de maneira compreensível, conforme discutido em "Software Engineering" por Ian Sommerville.
 
+No entanto, a análise crítica identificou algumas lacunas significativas. A IA falhou ao não abordar requisitos não-funcionais importantes, como segurança dos dados, desempenho do sistema e usabilidade.
+
+Além disso, a IA não considerou a flexibilidade e a escalabilidade do sistema para lidar com mudanças futuras ou um aumento na demanda por doações. Essa capacidade de adaptação é crucial para garantir a eficácia contínua do sistema ao longo do tempo, conforme discutido por Len Bass em "Software Architecture in Practice".
